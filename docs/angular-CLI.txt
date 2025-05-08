@@ -1,0 +1,21 @@
+✅ 1. Tạo Component
+Mục đích	Lệnh
+📦 Component thường (dùng module)	ng generate component ten-component hoặc ng g c ten-component
+🌟 Standalone Component	ng g c ten-component --standalone
+➕ Thêm vào module cụ thể	ng g c ten-component --module=app
+
+✅ 2. Tạo Service
+Mục đích	Lệnh
+Service mặc định	ng g s ten-service
+Đặt trong thư mục cụ thể	ng g s shared/services/user
+Không tạo test file	ng g s ten-service --skip-tests
+
+✅ 3. Tạo Module (nếu cần)
+Dùng khi bạn muốn tổ chức theo NgModule truyền thống
+
+Mục đích	Lệnh
+Tạo module thường	ng g module ten-module
+Có routing đi kèm	ng g module ten-module --routing
+Đặt trong features/	ng g module features/user --routing
+
+ng g s login --module=app/core/auth/login
