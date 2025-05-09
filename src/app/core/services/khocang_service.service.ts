@@ -37,6 +37,10 @@ export interface IKho_Cang_Service {
     /**
      * @return OK
      */
+    apiLogout(body: string): Observable<ApiResponseObject>;
+    /**
+     * @return OK
+     */
     apiLogin(body: LoginRequest): Observable<ApiResponseTokenResponse>;
     /**
      * @return OK
@@ -282,6 +286,61 @@ export class Kho_Cang_Service implements IKho_Cang_Service {
             }));
         }
         return _observableOf<ApiResponse>(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    apiLogout(body: string): Observable<ApiResponseObject> {
+        let url_ = this.baseUrl + "/api/logout";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApiLogout(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApiLogout(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ApiResponseObject>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ApiResponseObject>;
+        }));
+    }
+
+    protected processApiLogout(response: HttpResponseBase): Observable<ApiResponseObject> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ApiResponseObject.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ApiResponseObject>(null as any);
     }
 
     /**
@@ -661,6 +720,73 @@ export interface IApiResponse {
     [key: string]: any;
 }
 
+export class ApiResponseObject implements IApiResponseObject {
+    status?: ApiResponseObjectStatus;
+    message?: string;
+    code?: number;
+    data?: any;
+
+    [key: string]: any;
+
+    constructor(data?: IApiResponseObject) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.status = _data["status"];
+            this.message = _data["message"];
+            this.code = _data["code"];
+            this.data = _data["data"];
+        }
+    }
+
+    static fromJS(data: any): ApiResponseObject {
+        data = typeof data === 'object' ? data : {};
+        let result = new ApiResponseObject();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["code"] = this.code;
+        data["data"] = this.data;
+        return data;
+    }
+
+    clone(): ApiResponseObject {
+        const json = this.toJSON();
+        let result = new ApiResponseObject();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IApiResponseObject {
+    status?: ApiResponseObjectStatus;
+    message?: string;
+    code?: number;
+    data?: any;
+
+    [key: string]: any;
+}
+
 export class LoginRequest implements ILoginRequest {
     username?: string;
     password?: string;
@@ -1004,6 +1130,13 @@ export enum ApiResponseSysUserStatus {
 }
 
 export enum ApiResponseStatus {
+    SUCCESS = "SUCCESS",
+    ERROR = "ERROR",
+    WARNING = "WARNING",
+    INFO = "INFO",
+}
+
+export enum ApiResponseObjectStatus {
     SUCCESS = "SUCCESS",
     ERROR = "ERROR",
     WARNING = "WARNING",

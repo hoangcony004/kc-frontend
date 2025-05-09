@@ -1,10 +1,21 @@
-<div class="login-page">
-	<div class="form">
-		<h3 style="color: dimgray;">Đăng Nhập Hệ Thống</h3>
-	  <form class="login-form"  (ngSubmit)="onSubmit()">
-		<input type="text" name="username" placeholder="Nhập tên đăng nhập"/>
-		<input type="password" name="password" placeholder="Nhập mật khẩu"/>
-		<button>Đăng nhập</button>
-	  </form>
+<div class="login-container">
+	<div class="login-box">
+		<h2>Đăng nhập</h2>
+		<form (ngSubmit)="onSubmit()">
+			<div class="form-group">
+				<label for="username">Tên đăng nhập</label>
+				<input type="text" id="username" name="username" [(ngModel)]="username" placeholder="Nhập tên đăng nhập"
+					[disabled]="isLoading" autofocus />
+			</div>
+			<div class="form-group">
+				<label for="password">Mật khẩu</label>
+				<input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Nhập mật khẩu"
+					[disabled]="isLoading" />
+			</div>
+			<button type="submit" [disabled]="isLoading">
+				<span *ngIf="!isLoading">Đăng nhập</span>
+				<span *ngIf="isLoading">Đang xử lý...</span>
+			</button>
+		</form>
 	</div>
-  </div>
+</div>

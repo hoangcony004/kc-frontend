@@ -19,3 +19,4 @@ Có routing đi kèm	ng g module ten-module --routing
 Đặt trong features/	ng g module features/user --routing
 
 ng g s login --module=app/core/auth/login
+ng g c dashboard --standalone
