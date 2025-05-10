@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { timer } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private service: Kho_Cang_Service,
     private toastr: ToastrService,
-    private titleService: Title
+    private titleService: Title,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.isLoading = true;
+    this.spinnerService.show();
     const loginRequest = new LoginRequest();
     loginRequest.username = this.username;
     loginRequest.password = this.password;
@@ -64,11 +67,13 @@ export class LoginComponent implements OnInit {
           });
         } else {
           this.isLoading = false;
+          this.spinnerService.hide();
           this.toastr.error(response.message || 'Đăng nhập thất bại', 'Lỗi');
         }
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
+        this.spinnerService.hide();
         console.error('Login error:', error);
         if (error.status === 0) {
           this.toastr.error(
@@ -87,6 +92,7 @@ export class LoginComponent implements OnInit {
         // Chỉ reset loading khi đăng nhập thành công
         if (!localStorage.getItem('token')) {
           this.isLoading = false;
+          this.spinnerService.hide();
         }
       },
     });
