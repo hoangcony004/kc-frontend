@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ngx-icon-edit',
-    templateUrl: './icon-edit.component.html',
-    styleUrls: ['./icon-edit.component.scss']
+    selector: 'ng-icon-edit',
+    standalone: true ,
+    templateUrl: './icon-edit.component.html'
 })
 export class IconEditComponent {
     constructor() {

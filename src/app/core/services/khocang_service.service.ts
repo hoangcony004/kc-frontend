@@ -917,6 +917,7 @@ export interface IApiResponseTokenResponse {
 export class TokenResponse implements ITokenResponse {
     token?: string;
     menu?: string;
+    user?: SysUser;
 
     [key: string]: any;
 
@@ -926,6 +927,7 @@ export class TokenResponse implements ITokenResponse {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
+            this.user = data.user && !(<any>data.user).toJSON ? new SysUser(data.user) : <SysUser>this.user;
         }
     }
 
@@ -937,6 +939,7 @@ export class TokenResponse implements ITokenResponse {
             }
             this.token = _data["token"];
             this.menu = _data["menu"];
+            this.user = _data["user"] ? SysUser.fromJS(_data["user"]) : <any>undefined;
         }
     }
 
@@ -955,6 +958,7 @@ export class TokenResponse implements ITokenResponse {
         }
         data["token"] = this.token;
         data["menu"] = this.menu;
+        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         return data;
     }
 
@@ -969,6 +973,7 @@ export class TokenResponse implements ITokenResponse {
 export interface ITokenResponse {
     token?: string;
     menu?: string;
+    user?: ISysUser;
 
     [key: string]: any;
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Kho_Cang_Service,
   LoginRequest,
@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   isLoading: boolean = false;
+  
+  private route = inject(ActivatedRoute);
+  private returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   constructor(
     private router: Router,
@@ -57,14 +60,17 @@ export class LoginComponent implements OnInit {
           if (response.data.menu) {
             localStorage.setItem('menu', response.data.menu);
           }
-
+          if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+          } else {
+            console.error("User is undefined, cannot save to localStorage.");
+          }
+          
           this.toastr.success('Đăng nhập thành công', 'Thông báo');
-          // Đợi 2 giây trước khi chuyển hướng
-          timer(1000).subscribe(() => {
-            this.router.navigate(['/apps/dashboard']).then(() => {
-              window.location.reload();
-            });
-          });
+          // Điều hướng tới returnUrl nếu có, mặc định về dashboard
+          const targetUrl = this.returnUrl && this.returnUrl !== '/' ? this.returnUrl : '/apps/dashboard';
+          this.router.navigateByUrl(targetUrl);
+          
         } else {
           this.isLoading = false;
           this.spinnerService.hide();

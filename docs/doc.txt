@@ -1,0 +1,44 @@
+<ng-btn-add [text]="'Thêm mới'" [color]="'danger'"></ng-btn-add>
+
+<a href="javascript:void(0)" (click)="logout()" style="cursor: pointer; color: #007bff; text-decoration: none;">
+    Logout
+</a>
+
+
+logout() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Gọi API để thêm token vào blacklist
+      this.service.apiLogout(token).subscribe({
+        next: (response) => {
+          console.log('Logout response:', response);
+          // Xóa token và menu từ localStorage
+          localStorage.removeItem('token');
+          localStorage.removeItem('menu');
+
+          this.toastr.success('Đăng xuất thành công', 'Thông báo');
+          // Đợi 1 giây trước khi chuyển hướng
+          timer(1000).subscribe(() => {
+            this.router.navigate(['/auth/login']).then(() => {
+              window.location.reload();
+            });
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          // Ngay cả khi có lỗi, vẫn xóa token và chuyển hướng
+          localStorage.removeItem('token');
+          localStorage.removeItem('menu');
+          this.toastr.error('Đăng xuất thất bại', 'Lỗi');
+          // Đợi 1 giây trước khi chuyển hướng
+          timer(1000).subscribe(() => {
+            this.router.navigate(['/auth/login']).then(() => {
+              window.location.reload();
+            });
+          });
+        },
+      });
+    } else {
+      // Nếu không có token, chỉ cần chuyển hướng
+      this.router.navigate(['/auth/login']);
+    }
+  }

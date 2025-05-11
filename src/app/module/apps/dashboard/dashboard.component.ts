@@ -1,24 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { timer } from 'rxjs';
 import { Kho_Cang_Service } from '../../../core/services/khocang_service.service';
+import { SpinnerService } from '../../../core/services/spinner.service';
+import { Title } from '@angular/platform-browser';
+import { ThemeModule } from '../../../shared/theme.module';
+import { HeaderComponent } from '../../../shared/page/header/header.component';
+import { NavbarComponent } from '../../../shared/page/navbar/navbar.component';
+import { FooterComponent } from '../../../shared/page/footer/footer.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ThemeModule, HeaderComponent, NavbarComponent, FooterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  title = 'Dashboard';
+
   constructor(
     private router: Router,
     private service: Kho_Cang_Service,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinnerService: SpinnerService,
+    private titleService: Title,
   ) {}
+  ngOnInit(): void {
+    this.spinnerService.hide();
+    this.titleService.setTitle(this.title);
+  }
 
   logout() {
     const token = localStorage.getItem('token');

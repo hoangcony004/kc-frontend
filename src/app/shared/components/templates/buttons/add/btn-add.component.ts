@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LBL_DISPLAY } from '../../../../../core/custom/constants';
 
 @Component({
-    selector: 'ngx-btn-add',
+    selector: 'ng-btn-add',
     templateUrl: './btn-add.component.html',
-    styleUrls: ['./btn-add.component.scss']
 })
 export class BtnAddComponent implements OnInit {
     @Input() disabled: boolean | undefined;
