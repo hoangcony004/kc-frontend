@@ -1,0 +1,32 @@
+<div class="d-flex flex-column h-100">
+
+  <!-- Header -->
+  <div class="border-bottom pb-2 mb-3">
+    <h5 class="m-0">Thêm người dùng</h5>
+  </div>
+
+  <!-- Body -->
+  <div class="flex-grow-1 overflow-auto">
+    <form>
+      <div class="mb-3">
+        <label for="fullname" class="form-label">Họ và tên</label>
+        <input type="text" class="form-control" id="fullname" />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" />
+      </div>
+
+      <!-- Thêm các trường khác nếu cần -->
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="border-top pt-3 mt-3 text-end">
+    <button type="button" class="btn btn-secondary me-2" (click)="onClose()">Hủy</button>
+    <button type="button" class="btn btn-primary" (click)="onSave()">Lưu</button>
+  </div>
+
+</div>
+
