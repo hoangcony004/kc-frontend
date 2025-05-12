@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Nút toggle -->
+    <app-header></app-header>
+
+    <!-- Sidebar -->
+    <div class="col-md-2 collapse show bg-dark text-white min-vh-100" id="sidebar"
+      style="overflow-y: auto; max-height: 100vh;">
+      <app-navbar></app-navbar>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col">
+      <div class="p-3" style="background-color: #ededed;">
+        <h4>Products</h4>
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            Display
+            <select class="form-select d-inline w-auto">
+              <option>5</option>
+              <option>10</option>
+            </select>
+            products
+          </div>
+          <button class="btn btn-primary">Add Products</button>
+        </div>
+
+        <!-- Bảng dữ liệu -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Added Date</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Adirondack Chair</td>
+                <td>Aeron Chairs</td>
+                <td>07/07/2018</td>
+                <td>$65.94</td>
+                <td>652</td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td>
+                  <i class="bi bi-eye"></i>
+                  <i class="bi bi-pencil ms-2"></i>
+                  <i class="bi bi-trash ms-2"></i>
+                </td>
+              </tr>
+              <!-- Có thể thêm dòng khác -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col text-center bg-light py-3">
+    <app-footer></app-footer>
+  </div>
+</div>

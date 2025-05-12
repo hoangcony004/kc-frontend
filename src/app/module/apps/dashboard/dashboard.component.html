@@ -1,36 +1,25 @@
-<!-- <p>dashboard works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Nút toggle -->
+    <app-header></app-header>
 
-<div class="container mt-5">
-    <h1 class="text-primary">Bootstrap 5 đã hoạt động!</h1>
-    <button class="btn btn-success">Nhấn vào tôi</button>
+    <!-- Sidebar -->
+    <div class="col-md-2 collapse show bg-dark text-white min-vh-100" id="sidebar"
+      style="overflow-y: auto; max-height: 100vh;">
+      <app-navbar></app-navbar>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col">
+      <div class="p-3" style="background-color: #ededed;">
+        <h4>Dashboard</h4>
+        
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col text-center bg-light py-3">
+    <app-footer></app-footer>
+  </div>
 </div>
-
-<i class="fas fa-bell" style="color: red;"></i>
-<i class="fas fa-weight"></i>
-<i class="fas fa-trash-alt"></i>
-
-<ng-icon-edit></ng-icon-edit>
-<ng-icon-cancel></ng-icon-cancel>
-
-<ng-btn-add [text]="'Thêm mới'" [color]="'danger'"></ng-btn-add>
-
-<hr> -->
-
-
-<!-- <a href="javascript:void(0)" (click)="logout()" style="cursor: pointer; color: #007bff; text-decoration: none;">
-    Logout
-</a> -->
-
-
-<!-- <app-navbar></app-navbar>
-
-<div class="main-content">
-  <app-header></app-header>
-  
-  <main class="container-fluid mt-4">
-
-  </main>
-
-  <app-footer></app-footer>
-</div> -->
-

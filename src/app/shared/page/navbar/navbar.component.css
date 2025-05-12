@@ -1,0 +1,6 @@
+.side-nav-link {
+  color: white !important;
+  text-decoration: none !important;
+  padding-top: 10px;  /* Khoảng cách trên */
+  padding-bottom: 10px; /* Khoảng cách dưới */
+}
