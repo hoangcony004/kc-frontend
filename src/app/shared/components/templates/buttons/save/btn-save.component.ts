@@ -14,7 +14,7 @@ export class BtnSaveComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.text = this.text ?? LBL_DISPLAY.add;
+        this.text = this.text ?? LBL_DISPLAY.save;
         this.disabled  = this.disabled ?? false;
         this.color = this.color ?? 'primary';
     }

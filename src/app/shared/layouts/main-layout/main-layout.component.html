@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Header -->
+    <app-header></app-header>
+
+    <!-- Sidebar -->
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      tabindex="-1"
+      id="sidebarOffcanvas"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <app-navbar></app-navbar>
+      </div>
+    </div>
+
+    <!-- Main Content (chỉ phần này thay đổi) -->
+    <router-outlet></router-outlet>
+
+    <!-- Footer -->
+    <div class="col text-center bg-light py-3">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

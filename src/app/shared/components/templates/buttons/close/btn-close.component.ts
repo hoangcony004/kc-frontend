@@ -14,7 +14,7 @@ export class BtnCloseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.text = this.text ?? LBL_DISPLAY.add;
+        this.text = this.text ?? LBL_DISPLAY.close;
         this.disabled  = this.disabled ?? false;
         this.color = this.color ?? 'primary';
     }

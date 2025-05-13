@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ThemeModule } from '../../../../shared/theme.module';
 
 @Component({
   selector: 'app-user-crud',
-  imports: [],
+  imports: [ThemeModule],
   templateUrl: './user-crud.component.html',
   styleUrl: './user-crud.component.css'
 })

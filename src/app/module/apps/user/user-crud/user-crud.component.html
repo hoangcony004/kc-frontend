@@ -1,10 +1,15 @@
-<div class="d-flex flex-column h-100">
-
+<div class="d-flex flex-column h-100 p-4">
   <!-- Header -->
-  <div class="border-bottom pb-2 mb-3">
-    <h5 class="m-0">Thêm người dùng</h5>
+  <div
+    class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3"
+  >
+    <h3 class="m-0">Thêm người dùng</h3>
+    <ng-icon-cancel
+      (click)="onClose()"
+      style="font-size: 18px"
+    ></ng-icon-cancel>
   </div>
-
+  <br />
   <!-- Body -->
   <div class="flex-grow-1 overflow-auto">
     <form>
@@ -24,9 +29,8 @@
 
   <!-- Footer -->
   <div class="border-top pt-3 mt-3 text-end">
-    <button type="button" class="btn btn-secondary me-2" (click)="onClose()">Hủy</button>
-    <button type="button" class="btn btn-primary" (click)="onSave()">Lưu</button>
+    <ng-btn-close (click)="onClose()" [color]="'secondary'"></ng-btn-close
+    >&nbsp;&nbsp;
+    <ng-btn-save (click)="onSave()" [color]="'success'"></ng-btn-save>
   </div>
-
 </div>
-

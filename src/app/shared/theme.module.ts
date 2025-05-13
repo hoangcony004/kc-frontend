@@ -9,6 +9,7 @@ import { BtnSaveComponent } from './components/templates/buttons/save/btn-save.c
 import { IconInfoComponent } from './components/templates/icons/info/icon-info.component';
 import { IconDeleteComponent } from './components/templates/icons/delete/icon-delete.component';
 import { IconTreeComponent } from './components/templates/icons/tree/icon-tree.component';
+import { BtnCloseComponent } from './components/templates/buttons/close/btn-close.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { IconTreeComponent } from './components/templates/icons/tree/icon-tree.c
 
     BtnAddComponent,
     BtnBackComponent,
-    BtnSaveComponent
+    BtnSaveComponent,
+    BtnCloseComponent,
   ],
   exports: [
     IconEditComponent,
@@ -32,7 +34,8 @@ import { IconTreeComponent } from './components/templates/icons/tree/icon-tree.c
 
     BtnAddComponent,
     BtnBackComponent,
-    BtnSaveComponent
+    BtnSaveComponent,
+    BtnCloseComponent,
   ]
 })
 export class ThemeModule {}
