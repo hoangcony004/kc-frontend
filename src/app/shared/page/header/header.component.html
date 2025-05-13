@@ -3,20 +3,17 @@
     <i class="fas fa-bars"></i>
   </button>
   <input type="text" class="form-control w-auto" placeholder="Search..." />
+
   <div class="ms-auto d-flex align-items-center gap-3">
-    <i class="bi bi-bell fs-5"></i>
     <div class="dropdown">
-      <a href="#" class="dropdown-toggle text-decoration-none" data-bs-toggle="dropdown">
-        <!-- <img src="https://via.placeholder.com/30" class="rounded-circle me-2" /> -->
-        <strong>
-          {{ userName }}
-        </strong>
+      <a href="javascript:void(0)" class="dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" style="display: flex; align-items: center;">
+        <img [src]="imageLink" class="rounded-circle me-1" style="width: 35px;"/>
+        <strong>{{ userName }}</strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
         <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
         <li><a class="dropdown-item" href="#"><i class="fas fa-key"></i> Đổi mật khẩu</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)" (click)="logout()" style="cursor: pointer;"><i
-              class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="logout()" style="cursor: pointer;"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
       </ul>
     </div>
   </div>

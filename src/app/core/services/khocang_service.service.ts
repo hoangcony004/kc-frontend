@@ -504,13 +504,18 @@ export class Kho_Cang_Service implements IKho_Cang_Service {
 
 export class SysUser implements ISysUser {
     id?: number;
+    fullname?: string;
     username?: string;
     password?: string;
     email?: string;
     phone?: string;
+    gender?: number;
+    address?: string;
+    avatarUrl?: string;
     status?: number;
     unitcode?: string;
     createdAt?: Date;
+    updatedAt?: Date;
 
     [key: string]: any;
 
@@ -530,13 +535,18 @@ export class SysUser implements ISysUser {
                     this[property] = _data[property];
             }
             this.id = _data["id"];
+            this.fullname = _data["fullname"];
             this.username = _data["username"];
             this.password = _data["password"];
             this.email = _data["email"];
             this.phone = _data["phone"];
+            this.gender = _data["gender"];
+            this.address = _data["address"];
+            this.avatarUrl = _data["avatarUrl"];
             this.status = _data["status"];
             this.unitcode = _data["unitcode"];
             this.createdAt = _data["createdAt"] ? new Date(_data["createdAt"].toString()) : <any>undefined;
+            this.updatedAt = _data["updatedAt"] ? new Date(_data["updatedAt"].toString()) : <any>undefined;
         }
     }
 
@@ -554,13 +564,18 @@ export class SysUser implements ISysUser {
                 data[property] = this[property];
         }
         data["id"] = this.id;
+        data["fullname"] = this.fullname;
         data["username"] = this.username;
         data["password"] = this.password;
         data["email"] = this.email;
         data["phone"] = this.phone;
+        data["gender"] = this.gender;
+        data["address"] = this.address;
+        data["avatarUrl"] = this.avatarUrl;
         data["status"] = this.status;
         data["unitcode"] = this.unitcode;
         data["createdAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
+        data["updatedAt"] = this.updatedAt ? this.updatedAt.toISOString() : <any>undefined;
         return data;
     }
 
@@ -574,13 +589,18 @@ export class SysUser implements ISysUser {
 
 export interface ISysUser {
     id?: number;
+    fullname?: string;
     username?: string;
     password?: string;
     email?: string;
     phone?: string;
+    gender?: number;
+    address?: string;
+    avatarUrl?: string;
     status?: number;
     unitcode?: string;
     createdAt?: Date;
+    updatedAt?: Date;
 
     [key: string]: any;
 }
@@ -917,7 +937,7 @@ export interface IApiResponseTokenResponse {
 export class TokenResponse implements ITokenResponse {
     token?: string;
     menu?: string;
-    user?: SysUser;
+    user?: UserDTO;
 
     [key: string]: any;
 
@@ -927,7 +947,7 @@ export class TokenResponse implements ITokenResponse {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
-            this.user = data.user && !(<any>data.user).toJSON ? new SysUser(data.user) : <SysUser>this.user;
+            this.user = data.user && !(<any>data.user).toJSON ? new UserDTO(data.user) : <UserDTO>this.user;
         }
     }
 
@@ -939,7 +959,7 @@ export class TokenResponse implements ITokenResponse {
             }
             this.token = _data["token"];
             this.menu = _data["menu"];
-            this.user = _data["user"] ? SysUser.fromJS(_data["user"]) : <any>undefined;
+            this.user = _data["user"] ? UserDTO.fromJS(_data["user"]) : <any>undefined;
         }
     }
 
@@ -973,7 +993,106 @@ export class TokenResponse implements ITokenResponse {
 export interface ITokenResponse {
     token?: string;
     menu?: string;
-    user?: ISysUser;
+    user?: IUserDTO;
+
+    [key: string]: any;
+}
+
+export class UserDTO implements IUserDTO {
+    id?: number;
+    fullname?: string;
+    username?: string;
+    email?: string;
+    phone?: string;
+    gender?: number;
+    address?: string;
+    avatarUrl?: string;
+    status?: number;
+    unitcode?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+
+    [key: string]: any;
+
+    constructor(data?: IUserDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.id = _data["id"];
+            this.fullname = _data["fullname"];
+            this.username = _data["username"];
+            this.email = _data["email"];
+            this.phone = _data["phone"];
+            this.gender = _data["gender"];
+            this.address = _data["address"];
+            this.avatarUrl = _data["avatarUrl"];
+            this.status = _data["status"];
+            this.unitcode = _data["unitcode"];
+            this.createdAt = _data["createdAt"] ? new Date(_data["createdAt"].toString()) : <any>undefined;
+            this.updatedAt = _data["updatedAt"] ? new Date(_data["updatedAt"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UserDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["id"] = this.id;
+        data["fullname"] = this.fullname;
+        data["username"] = this.username;
+        data["email"] = this.email;
+        data["phone"] = this.phone;
+        data["gender"] = this.gender;
+        data["address"] = this.address;
+        data["avatarUrl"] = this.avatarUrl;
+        data["status"] = this.status;
+        data["unitcode"] = this.unitcode;
+        data["createdAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
+        data["updatedAt"] = this.updatedAt ? this.updatedAt.toISOString() : <any>undefined;
+        return data;
+    }
+
+    clone(): UserDTO {
+        const json = this.toJSON();
+        let result = new UserDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUserDTO {
+    id?: number;
+    fullname?: string;
+    username?: string;
+    email?: string;
+    phone?: string;
+    gender?: number;
+    address?: string;
+    avatarUrl?: string;
+    status?: number;
+    unitcode?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 
     [key: string]: any;
 }

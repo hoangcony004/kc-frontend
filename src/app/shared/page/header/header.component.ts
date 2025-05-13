@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit {
   userName: string = '';
+  imageLink: string = '';
 
   constructor(
     private router: Router,
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
       const userData = JSON.parse(user);
       // Lấy thông tin người dùng từ localStorage
       this.userName = userData.username;
+      this.imageLink = userData.avatarUrl;
     } else {
       this.userName = 'Vô danh';
     }
@@ -47,7 +49,7 @@ export class HeaderComponent implements OnInit {
 
           this.toastr.success('Đăng xuất thành công', 'Thông báo');
           // Đợi 1 giây trước khi chuyển hướng
-          timer(1000).subscribe(() => {
+          timer(500).subscribe(() => {
             this.router.navigate(['/auth/login']).then(() => {
               window.location.reload();
             });

@@ -71,10 +71,14 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "kc_frontend:build:production"
+              "buildTarget": "kc_frontend:build:production",
+              "host": "0.0.0.0",
+              "port": 2004      
             },
             "development": {
-              "buildTarget": "kc_frontend:build:development"
+              "buildTarget": "kc_frontend:build:development",
+              "host": "0.0.0.0",  
+              "port": 2004       
             }
           },
           "defaultConfiguration": "development"

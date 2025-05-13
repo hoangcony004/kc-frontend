@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeModule } from '../../../shared/theme.module';
 import { HeaderComponent } from '../../../shared/page/header/header.component';
 import { NavbarComponent } from '../../../shared/page/navbar/navbar.component';
@@ -7,6 +7,7 @@ import { FooterComponent } from '../../../shared/page/footer/footer.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserCrudComponent } from './user-crud/user-crud.component';
 import { CommonService } from '../../../core/custom/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -21,24 +22,23 @@ import { CommonService } from '../../../core/custom/common.service';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
+  title = 'Quản lý người dùng';
+
   constructor(
     private dialog: MatDialog,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private titleService: Title,
   ) {}
+
+  ngOnInit() {
+    this.titleService.setTitle(this.title);
+  }
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(UserCrudComponent, {
       ...this.commonService.configDialog('80%', {}),
       disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('Người dùng đồng ý!');
-      } else {
-        console.log('Người dùng hủy.');
-      }
     });
   }
 }

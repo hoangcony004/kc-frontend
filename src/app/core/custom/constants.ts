@@ -80,7 +80,7 @@ export const TRANGTHAI_SUDUNG = {
     },
   ];
 
-  export const accept_file_img = '.jpg, .png, .jpeg';
+export const accept_file_img = '.jpg, .png, .jpeg';
 export const allowedExtensionsImg = ['.jpg', '.png', '.jpeg'];
 export const accept_file_ncc = '.pdf, .jpg, .png, .jpeg';
 export const allowedExtensionsNcc = ['.jpg', '.png', '.jpeg', '.pdf', '.docx', '.xlsx', '.doc', '.xls', '.txt'];

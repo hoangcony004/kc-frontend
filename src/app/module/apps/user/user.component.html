@@ -22,14 +22,14 @@
         <div class="d-flex justify-content-between mb-3">
           <ng-btn-add [text]="'Thêm mới'" [color]="'primary'" (click)="openCreateDialog()"></ng-btn-add>
           <div>
-            <input type="text" class="form-control w-auto" placeholder="Search..." />
+            <input type="text" class="form-control w-auto" name="search" placeholder="Search..." />
           </div>
         </div>
 
         <!-- Bảng dữ liệu -->
         <div class="table-responsive">
           <table class="table table-bordered align-middle text-center">
-            <thead class="table-light">
+            <thead class="table-primary">
               <tr>
                 <th>Product</th>
                 <th>Category</th>
