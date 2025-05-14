@@ -2,12 +2,21 @@
   <div class="row">
     <!-- Header -->
     <app-header></app-header>
-    
+
     <!-- Sidebar -->
-    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarOffcanvas">
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      tabindex="-1"
+      id="sidebarOffcanvas"
+    >
       <div class="offcanvas-header">
         <h5 class="offcanvas-title">Menu</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="offcanvas-body p-0">
         <app-navbar></app-navbar>
@@ -16,13 +25,24 @@
 
     <!-- Main Content -->
     <div class="col">
-      <div class="p-3" style="background-color: #ededed;">
-        <h4>Users</h4>
-        <hr>
+      <div class="p-3" style="background-color: #ededed">
+        <h4>{{ title }}</h4>
+        <hr />
         <div class="d-flex justify-content-between mb-3">
-          <ng-btn-add [text]="'Thêm mới'" [color]="'primary'" (click)="openCreateDialog()"></ng-btn-add>
-          <div>
-            <input type="text" class="form-control w-auto" name="search" placeholder="Search..." />
+          <ng-btn-add
+            [text]="'Thêm mới'"
+            [color]="'primary'"
+            (click)="openCreateDialog()"
+          ></ng-btn-add>
+          <div class="d-flex justify-content-center">
+            <input
+              type="search"
+              class="form-control w-auto"
+              name="search"
+              placeholder="Search..."
+              [(ngModel)]="pageModel.strKey"
+            />&nbsp;
+            <ng-btn-search [text]="''" [color]="'success'" (click)="onSearch()"></ng-btn-search>
           </div>
         </div>
 
@@ -31,35 +51,35 @@
           <table class="table table-bordered align-middle text-center">
             <thead class="table-primary">
               <tr>
-                <th>Product</th>
-                <th>Category</th>
-                <th>Added Date</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Status</th>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Tên đăng nhập</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Trạng thái</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Adirondack Chair</td>
-                <td>Aeron Chairs</td>
-                <td>07/07/2018</td>
-                <td>$65.94</td>
-                <td>652</td>
-                <td><span class="badge bg-success">Active</span></td>
+              <tr *ngFor="let item of data; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.fullname }}</td>
+                <td>{{ item.username }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phone }}</td>
+                <td>{{ item.status }}</td>
                 <td>
                   <ng-icon-tree></ng-icon-tree>&nbsp;&nbsp;
-                  <ng-icon-info style="color: blue;"></ng-icon-info>&nbsp;&nbsp;
+                  <ng-icon-info style="color: blue"></ng-icon-info>&nbsp;&nbsp;
                   <ng-icon-edit></ng-icon-edit>&nbsp;&nbsp;
-                  <ng-icon-delete style="color: red;"></ng-icon-delete>
-
+                  <ng-icon-delete style="color: red"></ng-icon-delete>
                 </td>
               </tr>
             </tbody>
           </table>
+          <!-- phân trang -->
+           
         </div>
-
       </div>
     </div>
   </div>

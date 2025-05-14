@@ -10,6 +10,7 @@ import { IconInfoComponent } from './components/templates/icons/info/icon-info.c
 import { IconDeleteComponent } from './components/templates/icons/delete/icon-delete.component';
 import { IconTreeComponent } from './components/templates/icons/tree/icon-tree.component';
 import { BtnCloseComponent } from './components/templates/buttons/close/btn-close.component';
+import { BtnSearchComponent } from './components/templates/buttons/search/btn-search.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { BtnCloseComponent } from './components/templates/buttons/close/btn-clos
     BtnBackComponent,
     BtnSaveComponent,
     BtnCloseComponent,
+    BtnSearchComponent,
   ],
   exports: [
     IconEditComponent,
@@ -36,6 +38,7 @@ import { BtnCloseComponent } from './components/templates/buttons/close/btn-clos
     BtnBackComponent,
     BtnSaveComponent,
     BtnCloseComponent,
+    BtnSearchComponent,
   ]
 })
 export class ThemeModule {}

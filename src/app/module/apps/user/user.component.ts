@@ -8,6 +8,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserCrudComponent } from './user-crud/user-crud.component';
 import { CommonService } from '../../../core/custom/common.service';
 import { Title } from '@angular/platform-browser';
+import { Kho_Cang_Service, PageModel, SysUser } from '../../../core/services/khocang_service.service';
+import { PAGE_SIZE } from '../../../core/custom/constants';
+import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -18,6 +22,7 @@ import { Title } from '@angular/platform-browser';
     NavbarComponent,
     FooterComponent,
     MatDialogModule,
+    FormsModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
@@ -29,10 +34,44 @@ export class UserComponent implements OnInit{
     private dialog: MatDialog,
     private commonService: CommonService,
     private titleService: Title,
+    private service: Kho_Cang_Service,
+    private toastr: ToastrService,
   ) {}
 
+  pageModel: PageModel = new PageModel({
+    currentPage: 1,
+    pageSize: PAGE_SIZE,
+    strKey: undefined,
+  });
+  
+  data: SysUser[] = [];
+  totalItems: number = 0;
+  
   ngOnInit() {
     this.titleService.setTitle(this.title);
+    this.loadData();
+  }
+  
+  loadData(): void {
+    this.service.apiPrivateUsersSearchPaging(this.pageModel).subscribe({
+      next: (response) => {
+        if (response.status === 'SUCCESS') {
+          this.data = response.data ?? [];
+          // this.totalItems = response.data.total;
+        } else {
+          console.error('Lỗi khi tải dữ liệu:', response.message);
+          this.toastr.error(response.message || 'Không thể tải dữ liệu', 'Lỗi');
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi kết nối đến server:', err);
+        this.toastr.error('Lỗi kết nối đến server', 'Lỗi');
+      }
+    });
+  }  
+
+  onSearch() {
+    this.loadData();
   }
 
   openCreateDialog() {

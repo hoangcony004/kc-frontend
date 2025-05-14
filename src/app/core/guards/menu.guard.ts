@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuGuard implements CanActivate {
   constructor(private router: Router) {}
@@ -11,11 +15,19 @@ export class MenuGuard implements CanActivate {
     const fullPath = this.getFullRoutePath(route);
 
     const menuList = JSON.parse(localStorage.getItem('menu') || '[]');
+
+    // Nếu không có menu nào => chuyển về login
+    if (!menuList || menuList.length === 0) {
+      this.router.navigate(['auth/login']);
+      return false;
+    }
+
     const hasAccess = menuList.some((menu: any) => menu.link === fullPath);
 
     if (!hasAccess) {
-      alert('Bạn không có quyền truy cập chức năng này!');
-      this.router.navigate(['/apps/dashboard']);
+      alert('Bạn không có quyền truy cập chức năng này!. Liên hệ Admin để có quyền truy cập.');
+      // this.router.navigate(['/apps/dashboard']);
+      this.router.navigate(['auth/login']);
       return false;
     }
 
