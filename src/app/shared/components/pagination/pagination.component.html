@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between align-items-center mt-3" *ngIf="totalPages > 1">
+    <div>
+      <span>Trang {{ currentPage }}/{{ totalPages }} ({{ totalItems }} bản ghi)</span>
+    </div>
+    <div>
+      <nav aria-label="Page navigation">
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" href="javascript:void(0)" (click)="prevPage()">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
+          <ng-container *ngIf="totalPages <= 5">
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+              <a class="page-link" href="javascript:void(0)" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="totalPages > 5">
+            <!-- Trang đầu -->
+            <li class="page-item" [class.active]="currentPage === 1">
+              <a class="page-link" href="javascript:void(0)" (click)="goToPage(1)">1</a>
+            </li>
+
+            <!-- Dấu ... nếu trang hiện tại > 3 -->
+            <li class="page-item disabled" *ngIf="currentPage > 3">
+              <a class="page-link" href="javascript:void(0)">...</a>
+            </li>
+
+            <!-- Trang trước trang hiện tại -->
+            <li class="page-item" *ngIf="currentPage > 2">
+              <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)">{{ currentPage - 1 }}</a>
+            </li>
+
+            <!-- Trang hiện tại (nếu không phải trang đầu hoặc cuối) -->
+            <li class="page-item active" *ngIf="currentPage !== 1 && currentPage !== totalPages">
+              <a class="page-link" href="javascript:void(0)">{{ currentPage }}</a>
+            </li>
+
+            <!-- Trang sau trang hiện tại -->
+            <li class="page-item" *ngIf="currentPage < totalPages - 1">
+              <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage + 1)">{{ currentPage + 1 }}</a>
+            </li>
+
+            <!-- Dấu ... nếu trang hiện tại < totalPages - 2 -->
+            <li class="page-item disabled" *ngIf="currentPage < totalPages - 2">
+              <a class="page-link" href="javascript:void(0)">...</a>
+            </li>
+            <!-- Trang cuối -->
+            <li class="page-item" [class.active]="currentPage === totalPages">
+              <a class="page-link" href="javascript:void(0)" (click)="goToPage(totalPages)">{{ totalPages }}</a>
+            </li>
+          </ng-container>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" href="javascript:void(0)" (click)="nextPage()">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>

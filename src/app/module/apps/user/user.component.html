@@ -4,19 +4,10 @@
     <app-header></app-header>
 
     <!-- Sidebar -->
-    <div
-      class="offcanvas offcanvas-start text-bg-dark"
-      tabindex="-1"
-      id="sidebarOffcanvas"
-    >
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarOffcanvas">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title">Menu</h5>
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body p-0">
         <app-navbar></app-navbar>
@@ -29,25 +20,16 @@
         <h4>{{ title }}</h4>
         <hr />
         <div class="d-flex justify-content-between mb-3">
-          <ng-btn-add
-            [text]="'Thêm mới'"
-            [color]="'primary'"
-            (click)="openCreateDialog()"
-          ></ng-btn-add>
+          <ng-btn-add [text]="'Thêm mới'" [color]="'primary'" (click)="openCreateDialog()"></ng-btn-add>
           <div class="d-flex justify-content-center">
-            <input
-              type="search"
-              class="form-control w-auto"
-              name="search"
-              placeholder="Search..."
-              [(ngModel)]="pageModel.strKey"
-            />&nbsp;
+            <input type="search" class="form-control w-auto" name="search" placeholder="Search..."
+              [(ngModel)]="pageModel.strKey" />&nbsp;
             <ng-btn-search [text]="''" [color]="'success'" (click)="onSearch()"></ng-btn-search>
           </div>
         </div>
 
         <!-- Bảng dữ liệu -->
-        <div class="table-responsive">
+        <div class="table-responsive p-3">
           <table class="table table-bordered align-middle text-center">
             <thead class="table-primary">
               <tr>
@@ -62,7 +44,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of data; let i = index">
-                <td>{{ i + 1 }}</td>
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                 <td>{{ item.fullname }}</td>
                 <td>{{ item.username }}</td>
                 <td>{{ item.email }}</td>
@@ -77,8 +59,10 @@
               </tr>
             </tbody>
           </table>
-          <!-- phân trang -->
-           
+          <!-- Phân trang -->
+          <app-pagination [currentPage]="pageModel.currentPage!" [totalPages]="totalPages!" [totalItems]="totalItems!"
+            (pageChanged)="changePage($event)">
+          </app-pagination>
         </div>
       </div>
     </div>
