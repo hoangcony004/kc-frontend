@@ -1,36 +1,67 @@
 <div class="d-flex flex-column h-100 p-4">
-  <!-- Header -->
-  <div
-    class="d-flex justify-content-between align-items-center border-bottom pb-2"
-  >
-    <h3 class="m-0">Thêm người dùng</h3>
-    <ng-icon-cancel
-      (click)="onClose()"
-      style="font-size: 18px"
-    ></ng-icon-cancel>
-  </div>
-  <br />
-  <!-- Body -->
-  <div class="flex-grow-1 overflow-auto p-1">
-    <form>
-      <div class="mb-3">
-        <label for="fullname" class="form-label">Họ và tên</label>
-        <input type="text" class="form-control" id="fullname" />
+  <form #frm="ngForm" (ngSubmit)="onSave(frm)">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+      <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.create">Thêm người dùng</h3>
+      <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.edit">Chỉnh sửa người dùng</h3>
+      <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.detail">Xem chi tiết người dùng</h3>
+      <ng-icon-cancel (click)="onClose()" style="font-size: 18px"></ng-icon-cancel>
+    </div>
+    <br />
+    <!-- Body -->
+    <div class="flex-grow-1 overflow-auto p-1">
+
+      <div class="row">
+        <!-- Cột bên trái -->
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Họ và tên</label>
+            <input type="text" class="form-control" id="fullname" placeholder="Nhập họ tên" name="fullname" required
+              [(ngModel)]="target.fullname">
+          </div>
+
+          <div class="mb-3">
+            <label for="username" class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập" name="username"
+              required [(ngModel)]="target.username">
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password"
+              required [(ngModel)]="target.password">
+          </div>
+        </div>
+
+        <!-- Cột bên phải -->
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" required
+              [(ngModel)]="target.phone">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email" required
+              [(ngModel)]="target.email">
+          </div>
+
+          <div class="mb-3">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" class="form-control" id="code" placeholder="Nhập code" name="unitcode"
+              [(ngModel)]="target.unitcode" readonly>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" />
-      </div>
+    <!-- Footer -->
+    <div class="border-top pt-3 mt-3 text-end">
+      <ng-btn-close (click)="onClose()" [color]="'secondary'"></ng-btn-close>&nbsp;&nbsp;
+      <ng-btn-save [color]="'success'" [disabled]="(frm?.invalid ?? false)" (click)="onSave(frm)"
+        *ngIf="dataRef.actionType !== statusAction.detail"></ng-btn-save>
 
-      <!-- Thêm các trường khác nếu cần -->
-    </form>
-  </div>
-
-  <!-- Footer -->
-  <div class="border-top pt-3 mt-3 text-end">
-    <ng-btn-close (click)="onClose()" [color]="'secondary'"></ng-btn-close
-    >&nbsp;&nbsp;
-    <ng-btn-save (click)="onSave()" [color]="'success'"></ng-btn-save>
-  </div>
+    </div>
+  </form>
 </div>

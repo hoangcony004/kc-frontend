@@ -1,6 +1,6 @@
-export const SUCCESS = 'success';
-export const ERROR = 'error';
-export const WARNING = 'warning';
+export const SUCCESS = 'SUCCESS';
+export const ERROR = 'ERROR';
+export const WARNING = 'WARNING';
 export const INFO = 'INFO ';
 
 export const STATUS_ACTION = {

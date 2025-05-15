@@ -21,8 +21,11 @@
         <hr />
         <div class="d-flex justify-content-between mb-3">
           <ng-btn-add [text]="'Thêm mới'" [color]="'primary'" (click)="openCreateDialog()"></ng-btn-add>
-          <div class="d-flex justify-content-center">
-            <input type="search" class="form-control w-auto" name="search" placeholder="Search..."
+        </div>
+
+        <div class="col">
+          <div class="d-flex justify-content-end">
+            <input type="search" class="form-control w-auto" name="search" placeholder="Tìm kiếm..."
               [(ngModel)]="pageModel.strKey" />&nbsp;
             <ng-btn-search [text]="''" [color]="'success'" (click)="onSearch()"></ng-btn-search>
           </div>
@@ -49,7 +52,12 @@
                 <td>{{ item.username }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.phone }}</td>
-                <td>{{ item.status }}</td>
+                <td>
+                  <span [ngClass]="getStatusClass(item.status)" class="text-white px-2 py-1 rounded">
+                    {{ getStatusText(item.status) }}
+                  </span>
+                </td>
+                
                 <td>
                   <ng-icon-tree></ng-icon-tree>&nbsp;&nbsp;
                   <ng-icon-info style="color: blue"></ng-icon-info>&nbsp;&nbsp;

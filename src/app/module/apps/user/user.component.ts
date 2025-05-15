@@ -14,7 +14,7 @@ import {
   PageModel,
   SysUser,
 } from '../../../core/services/khocang_service.service';
-import { PAGE_SIZE } from '../../../core/custom/constants';
+import { PAGE_SIZE, STATUS_ACTION } from '../../../core/custom/constants';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
@@ -90,11 +90,37 @@ export class UserComponent implements OnInit {
     this.pageModel.currentPage = page;
     this.loadData();
   }
+
+  getStatusText(status?: number): string {
+    switch (status) {
+      case 0:
+        return 'Chưa kích hoạt';
+      case 1:
+        return 'Hoạt động';
+      case 2:
+        return 'Đã khóa';
+      default:
+        return 'Không xác định';
+    }
+  }
+  
+  getStatusClass(status?: number): string {
+    switch (status) {
+      case 0:
+        return 'bg-secondary';
+      case 1:
+        return 'bg-success';
+      case 2:
+        return 'bg-danger';
+      default:
+        return 'bg-secondary';
+    }
+  }
   
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(UserCrudComponent, {
-      ...this.commonService.configDialog('80%', {}),
+      ...this.commonService.configDialog('80%', {key: null, actionType: STATUS_ACTION.create}),
       disableClose: true,
     });
   }
