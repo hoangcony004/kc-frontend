@@ -1,0 +1,11 @@
+<h2 mat-dialog-title [ngClass]="data.color">
+    <i class="fa fa-{{ data.icon }} me-2"></i>{{ data.title }}
+</h2>
+
+
+<mat-dialog-content [innerHTML]="data.message"></mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close [color]="'default'">Hủy</button>
+    <button mat-button color="warn" [mat-dialog-close]="true" [ngClass]="data.color">Xác nhận</button>
+</mat-dialog-actions>

@@ -5,6 +5,7 @@
       <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.create">Thêm người dùng</h3>
       <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.edit">Chỉnh sửa người dùng</h3>
       <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.detail">Xem chi tiết người dùng</h3>
+      <h3 class="m-0" *ngIf="dataRef.actionType === statusAction.role">Phân quyền người dùng</h3>
       <ng-icon-cancel (click)="onClose()" style="font-size: 18px"></ng-icon-cancel>
     </div>
     <br />
@@ -13,45 +14,60 @@
 
       <div class="row">
         <!-- Cột bên trái -->
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="dataRef.actionType !== statusAction.role">
           <div class="mb-3">
             <label for="fullname" class="form-label">Họ và tên</label>
             <input type="text" class="form-control" id="fullname" placeholder="Nhập họ tên" name="fullname" required
-              [(ngModel)]="target.fullname">
+              [(ngModel)]="target.fullname" [disabled]="dataRef.actionType === statusAction.detail"
+              [ngModelOptions]="{ updateOn: 'change' }">
           </div>
 
           <div class="mb-3">
             <label for="username" class="form-label">Tên đăng nhập</label>
             <input type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập" name="username"
-              required [(ngModel)]="target.username">
+              required [(ngModel)]="target.username" [disabled]="dataRef.actionType === statusAction.detail"
+              [ngModelOptions]="{ updateOn: 'change' }">
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="dataRef.actionType !== statusAction.detail">
             <label for="password" class="form-label">Mật khẩu</label>
             <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password"
-              required [(ngModel)]="target.password">
+              required [(ngModel)]="target.password" [ngModelOptions]="{ updateOn: 'change' }">
           </div>
         </div>
 
         <!-- Cột bên phải -->
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="dataRef.actionType !== statusAction.role">
           <div class="mb-3">
             <label for="phone" class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" required
-              [(ngModel)]="target.phone">
+            <input type="number" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" required
+              [(ngModel)]="target.phone" [disabled]="dataRef.actionType === statusAction.detail"
+              [ngModelOptions]="{ updateOn: 'change' }">
           </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email" required
-              [(ngModel)]="target.email">
+              [(ngModel)]="target.email" [disabled]="dataRef.actionType === statusAction.detail"
+              [ngModelOptions]="{ updateOn: 'change' }">
           </div>
 
           <div class="mb-3">
             <label for="code" class="form-label">Code</label>
             <input type="text" class="form-control" id="code" placeholder="Nhập code" name="unitcode"
-              [(ngModel)]="target.unitcode" readonly>
+              [(ngModel)]="target.unitcode" readonly [disabled]="dataRef.actionType === statusAction.detail"
+              [ngModelOptions]="{ updateOn: 'change' }">
           </div>
+        </div>
+
+        <div class="col-md-12" *ngIf="dataRef.actionType === statusAction.role">
+            <div class="mb-3">
+              <label for="code" class="form-label">Phân quyền</label>
+              <ng-select name="role" [items]="lstRole" bindLabel="label" bindValue="id" [(ngModel)]="selectedRoleId"
+                placeholder="-- Chọn vai trò --" [searchable]="true">
+              </ng-select>
+          </div><br>
+          <h5>Quyền đang sử dùng là:</h5>
         </div>
       </div>
     </div>

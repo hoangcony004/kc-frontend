@@ -57,13 +57,19 @@
                     {{ getStatusText(item.status) }}
                   </span>
                 </td>
-                
+
                 <td>
-                  <ng-icon-tree></ng-icon-tree>&nbsp;&nbsp;
-                  <ng-icon-info style="color: blue"></ng-icon-info>&nbsp;&nbsp;
-                  <ng-icon-edit></ng-icon-edit>&nbsp;&nbsp;
-                  <ng-icon-delete style="color: red"></ng-icon-delete>
+                  <ng-icon-tree matTooltip="Phân quyền" (click)="openRoleDialog(item.id ?? 0)"></ng-icon-tree>&nbsp;&nbsp;
+
+                  <ng-icon-info matTooltip="Xem chi tiết" style="color: blue"
+                    (click)="openDetailDialog(item.id ?? 0)"></ng-icon-info>&nbsp;&nbsp;
+
+                  <ng-icon-edit matTooltip="Chỉnh sửa"
+                    (click)="openEditDialog(item.id ?? 0)"></ng-icon-edit>&nbsp;&nbsp;
+
+                  <ng-icon-delete matTooltip="Xoá" style="color: red" (click)="openDeleteDialog(item.id ?? 0, item.username)"></ng-icon-delete>
                 </td>
+
               </tr>
             </tbody>
           </table>
